@@ -1,0 +1,255 @@
+Program.Sub.ScreenSU.Start
+Gui.frmPrinter..Create
+Gui.frmPrinter..Caption("Select Printer")
+Gui.frmPrinter..Size(5640,2235)
+Gui.frmPrinter..MinX(0)
+Gui.frmPrinter..MinY(0)
+Gui.frmPrinter..Position(0,0)
+Gui.frmPrinter..AlwaysOnTop(True)
+Gui.frmPrinter..BackColor(-2147483633)
+Gui.frmPrinter..MaxButton(False)
+Gui.frmPrinter..MinButton(False)
+Gui.frmPrinter..MousePointer(0)
+Gui.frmPrinter..Event(UnLoad,frmPrinter_UnLoad)
+Gui.frmPrinter.cmdPrint.Create(Button)
+Gui.frmPrinter.cmdPrint.Size(885,375)
+Gui.frmPrinter.cmdPrint.Position(150,1140)
+Gui.frmPrinter.cmdPrint.Caption("&Print")
+Gui.frmPrinter.cmdPrint.Event(Click,cmdPrint_Click)
+Gui.frmPrinter.lbl1.Create(Label,"Select Printer :",True,1230,255,0,165,450,True,0,"Arial",8,-2147483633,0)
+Gui.frmPrinter.ddlPrint.Create(DropDownList)
+Gui.frmPrinter.ddlPrint.Size(3555,330)
+Gui.frmPrinter.ddlPrint.Position(1320,390)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.UDT.uKIT.Define("DESCR",String,"")
+Variable.UDT.uKIT.Define("INV_UM",String,"")
+Variable.UDT.uKIT.Define("DUE_DATE",String,"")
+Variable.UDT.uKIT.Define("QTY_ON_LABEL",Float,"")
+Variable.UDT.uKIT.Define("ROUTERPART",String,"")
+Variable.UDT.uKIT.Define("WO",String,"")
+Variable.UDT.uKIT.Define("WO_SUFFIX",String,"")
+Variable.UDT.uKIT.Define("MWO",String,"")
+Variable.UDT.uKIT.Define("MWO_SUFFIX",String,"")
+Variable.uGlobal.uKIT.Declare("uKIT")
+
+Variable.UDT.uDET.Define("DESCR",String,"extra_desc")
+Variable.UDT.uDET.Define("INV_UM",String,"UM")
+Variable.UDT.uDET.Define("BIN",String,"BIN")
+Variable.UDT.uDET.Define("QTY_ON_LABEL",Float,"Matl_Total")
+Variable.UDT.uDET.Define("PART",String,"PWC")
+Variable.UDT.uDET.Define("WO",String,"JOB")
+Variable.UDT.uDET.Define("WO_SUFFIX",String,"SUFFIX")
+Variable.UDT.uDET.Define("MWO",String,"")
+Variable.UDT.uDET.Define("MWO_SUFFIX",String,"")
+Variable.UDT.uDET.Define("MOD",String,"MFG_Part")
+Variable.UDT.uDET.Define("MFG",String,"MFG_Name")
+Variable.UDT.uDET.Define("sort_code",String,"sort_code")
+Variable.UDT.uDET.Define("line_router",String,"line_router")
+Variable.uGlobal.uDET.Declare("uDET")
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.sPrinterName.Declare(String)
+'
+
+F.Intrinsic.Control.If(V.Caller.Hook,=,16090)
+f.Intrinsic.Control.andIf(v.Passed.009001,=,"001811")
+	F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass,7200)
+	F.Intrinsic.Control.CallSub(Loaddata1)
+f.Intrinsic.Control.EndIf 
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_BagLabel.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.LoadData1.Start
+F.Intrinsic.Control.SetErrorHandler("LoadData1_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+V.Local.sSql.Declare(String)
+V.Local.iUB.Declare(Long)
+v.local.sDt.Declare(String)
+v.local.sDt1.Declare(String)
+v.local.sDt2.Declare(String)
+
+
+'V.uGlobal.uKIT.Redim(-1,-1)
+V.uGlobal.uKIT.Redim(0,0)
+
+V.Local.sRptName.Declare(string)
+V.Local.sRptdetName.Declare(string)
+V.Local.iRptid.Declare(long)
+V.Local.iRUNID.Declare(long)
+V.Local.iLOGID.Declare(long)
+V.Local.sPrinterName.Declare(string)
+
+
+
+
+F.Intrinsic.String.Build("{0}\Labels\GCG_4264_KITLabel_Part.lab",V.Caller.BusintDir,V.Local.sRptdetName)
+F.Intrinsic.String.Build("{0}\Labels\GCG_4264_KITLabel_ROUTER.lab",V.Caller.BusintDir,V.Local.sRptName)
+
+'Loading data from Y table, as being label being printed from Menu, Selecting all fields as all fields are transferred over from Y table to Z table
+
+'F.Intrinsic.String.Build("select RUNID,Part,External_ID,Qty_On_Label,LBL_Create_Date from Y_SF_WIPTOFG Y left join v_CUST_FORM_INFO V on Y.customer = V.customer where RUNID = {0}",V.Global.iBIRunID,V.Local.sSql)
+F.Intrinsic.String.Build("select JOB,SUFFIX,DATE_DUE,PWO,PWO_SUFFIX,PART_DESC,INV_UOM,ROUTER,QTY from BI_BAR_HEAD where RPTID = '001811' and terminal ='{0}' order by key_SEQ",v.Caller.Terminal ,V.Local.sSql)
+F.ODBC.Connection!con.OpenLocalRecordsetRO("rst",V.local.sSQL)
+
+	f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)
+		Function.ODBC.Connection!conx.openConnection(variable.Ambient.Ccon, Variable.Ambient.Cuser, Variable.Ambient.Cpass)
+		V.Local.sSql.Set("Select SentinelAlias,SentinelAlias from SERVER_PRINTERS where SentinelEnabled = 1 ")
+		f.Data.Dictionary.CreateFromSQL("DICDT","conx",V.Local.sSql)
+		F.Data.Dictionary.SetDefaultReturn("DICDT", "")
+		gui.frmPrinter.ddlPrint.AddItems("Dictionary","DICDT")
+		gui.frmPrinter..Show 
+		Gui.frmPrinter..WaitForDismiss
+		V.Local.sPrinterName.set(v.Screen.frmPrinter!ddlPrint.Text)
+	f.Intrinsic.Control.endif
+
+	F.Intrinsic.Control.DoUntil(V.ODBC.con!rst.EOF,=,True)
+
+	V.uGlobal.uKIT(0)!DESCR.Set(v.ODBC.con!rst.FieldVal!PART_DESC)
+	V.uGlobal.uKIT(0)!INV_UM.Set(v.ODBC.con!rst.FieldVal!INV_UOM)
+
+	f.Intrinsic.String.Mid(v.ODBC.con!rst.FieldVal!DATE_DUE,1,2,v.local.sDt)
+	f.Intrinsic.String.Mid(v.ODBC.con!rst.FieldVal!DATE_DUE,3,2,v.local.sDt1)
+	f.Intrinsic.String.Mid(v.ODBC.con!rst.FieldVal!DATE_DUE,5,2,v.local.sDt2)
+	f.Intrinsic.String.Build("{0}/{1}/{2}",v.local.sDt,v.local.sDt1,v.local.sDt2,v.local.sDt)
+	V.uGlobal.uKIT(0)!DUE_DATE.Set(v.local.sDt)
+
+	V.uGlobal.uKIT(0)!QTY_ON_LABEL.Set(v.ODBC.con!rst.FieldVal!QTY)
+	V.uGlobal.uKIT(0)!ROUTERPART.Set(v.ODBC.con!rst.FieldVal!ROUTER)
+	V.uGlobal.uKIT(0)!WO.Set(v.ODBC.con!rst.FieldVal!JOB)
+	V.uGlobal.uKIT(0)!WO_SUFFIX.Set(v.ODBC.con!rst.FieldVal!SUFFIX)
+
+	f.Intrinsic.Control.If(v.ODBC.con!rst.FieldVal!PWO_SUFFIX,=,"000")
+	f.Intrinsic.Control.andIf(v.ODBC.con!rst.FieldValTrim!PWO,=,"")
+		V.uGlobal.uKIT(0)!MWO.Set(v.ODBC.con!rst.FieldVal!JOB)
+	f.Intrinsic.Control.Else
+		V.uGlobal.uKIT(0)!MWO.Set(v.ODBC.con!rst.FieldVal!PWO)
+	f.Intrinsic.Control.EndIf 
+
+	V.uGlobal.uKIT(0)!MWO_SUFFIX.Set(v.ODBC.con!rst.FieldVal!PWO_SUFFIX)
+
+	F.Global.BI.GetIDFromName("GCG_4264_KITLabel_ROUTER.lab",V.Local.iRptid)
+	F.Global.BI.GetRunID(V.Local.iRUNID)
+	F.Global.BI.StartLogging(V.Local.iRUNID,V.Local.iRptid,0,"",V.Local.iLOGID)
+	F.Global.BI.StopLogging(V.Local.iLOGID)
+'	F.ODBC.Connection!con.OpenLocalRecordsetRO("rst",V.local.sSQL)
+'	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rst","V.uGlobal.uKIT",False,0)
+
+
+	'Router Label
+'	F.Global.BI.PrintCodesoftLabelFromUDT(V.Local.iRUNID,V.Local.iLOGID,"uGlobal.uKIT","","",True)
+	F.Global.BI.PrintCodesoftLabelFromUDT(V.Local.iRUNID,V.Local.iLOGID,"uGlobal.uKIT","",V.Local.sPrinterName.trim,True)
+
+	V.uGlobal.uDET.Redim(-1,-1)
+'	V.Local.sSql.Set("select JOB,Suffix,PWC,extra_desc,UM,Matl_Total,MFG_Part,MFG_Name,Bin from v_BI_BAR_DETAIL JOB left Join INVENTORY_MST3 INV ON Job.PWC_Part = INV.part left JOIN INV_CROSS_REF CR ON Job.PWC_Part = CR.Part  left join INVENTORY_MSTR MST ON Job.PWC_Part = MST.Part ")
+'	F.Intrinsic.String.Build(" {0} where RPTID = '001811' and terminal ='{1}' AND job = '{2}' and suffix = '{3}' and LMO = 'M' and Router_SEQ < 995000 and INV.DO_Not_BackFlush <> 'Y' order by Key_seq ",V.Local.sSql,v.Caller.Terminal,v.ODBC.con!rst.FieldVal!JOB,v.ODBC.con!rst.FieldVal!Suffix,V.Local.sSql)
+'	
+
+'select sort_code from "ROUTER_LINE" where router = '853-052905-221   B' and part_wc_outside like '39-054518-00%''
+
+	V.Local.sSql.Set("select distinct JOB,Suffix,job.part as PWC,job.description as extra_desc,UM,Est_Hrs as Matl_Total,MFG_Part,MFG_Name,MST.Bin,ROU.sort_code,ROU.line_router from v_prt_mat_pick_list JOB left Join INVENTORY_MST3 INV ON Job.Part = INV.part left JOIN INV_CROSS_REF CR ON Job.Part = CR.Part  left join INVENTORY_MSTR MST ON Job.Part = MST.Part ")
+	F.Intrinsic.String.Build(" {0} left join ROUTER_LINE ROU ON Job.Part = ROU.part_wc_outside and Job.Router = ROU.Router where terminal_no ='{1}' and job = '{2}' and suffix = '{3}'  and INV.DO_Not_BackFlush <> 'Y' and Rec_Type = 'L1' and CR.customer = '' order by ROU.line_router ",V.Local.sSql,v.Caller.Terminal,v.ODBC.con!rst.FieldVal!JOB,v.ODBC.con!rst.FieldVal!Suffix,V.Local.sSql)
+
+	F.ODBC.Connection!con.OpenLocalRecordsetRO("rst1",V.local.sSQL)
+	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rst1","V.uGlobal.uDET",False,0)
+
+	F.Intrinsic.Control.If(V.uGlobal.uDET.UBound,>,-1)
+		F.Intrinsic.Variable.UDTSetMemberValue(v.uGlobal.uDET!MWO,V.uGlobal.uKIT(0)!MWO)
+		F.Intrinsic.Variable.UDTSetMemberValue(v.uGlobal.uDET!MWO_SUFFIX,V.uGlobal.uKIT(0)!MWO_SUFFIX)
+
+		F.Global.BI.GetIDFromName("GCG_4264_KITLabel_Part.lab",V.Local.iRptid)
+		F.Global.BI.GetRunID(V.Local.iRUNID)
+		F.Global.BI.StartLogging(V.Local.iRUNID,V.Local.iRptid,0,"",V.Local.iLOGID)
+		F.Global.BI.StopLogging(V.Local.iLOGID)
+		F.Intrinsic.Debug.Stop
+	    'Part Label
+'	    F.Global.BI.PrintCodesoftLabelFromUDT(V.Local.iRUNID,V.Local.iLOGID,"uGlobal.uDET","","",True)
+		F.Global.BI.PrintCodesoftLabelFromUDT(V.Local.iRUNID,V.Local.iLOGID,"uGlobal.uDET","",V.Local.sPrinterName.trim,True)
+	Function.Intrinsic.Control.EndIf
+	F.ODBC.con!rst1.Close
+
+	F.Global.BI.GetIDFromName("GCG_4264_KITLabel_ROUTER.lab",V.Local.iRptid)
+	F.Global.BI.GetRunID(V.Local.iRUNID)
+	F.Global.BI.StartLogging(V.Local.iRUNID,V.Local.iRptid,0,"",V.Local.iLOGID)
+	F.Global.BI.StopLogging(V.Local.iLOGID)
+	'Router Label
+'	F.Global.BI.PrintCodesoftLabelFromUDT(V.Local.iRUNID,V.Local.iLOGID,"uGlobal.uKIT","","",True)
+	F.Global.BI.PrintCodesoftLabelFromUDT(V.Local.iRUNID,V.Local.iLOGID,"uGlobal.uKIT","",V.Local.sPrinterName.trim,True)
+
+	f.ODBC.con!rst.MoveNext 
+F.Intrinsic.Control.loop
+F.ODBC.con!rst.Close
+
+
+Function.Intrinsic.Control.CallSub(frmprinter_unload)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("LoadData1_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_BagLabel.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.LoadData1.End
+
+Program.Sub.Unload1.Start
+
+
+
+Program.Sub.Unload1.End
+
+Program.Sub.frmPrinter_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("Unload1_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+
+F.ODBC.Connection!con.Close
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Unload1_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_BagLabel.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+Program.Sub.frmPrinter_UnLoad.End
+
+Program.Sub.cmdPrint_Click.Start
+
+	gui.frmPrinter..Visible(false)
+
+
+Program.Sub.cmdPrint_Click.End
+
+Program.Sub.Comments.Start
+${$0$}$GCG_4264_POReceipt_2818.g2u$}$RAN$}$1/6/2017 10:58:36 AM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$Modification of ARC Project 1507 original program GCG_6963-2_Multi_MRP.gas
+This adds in the ability to save the Summary for later use.
+Program.Sub.Comments.End
