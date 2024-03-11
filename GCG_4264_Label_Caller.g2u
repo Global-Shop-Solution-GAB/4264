@@ -1,0 +1,49 @@
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.iRet.Declare(Long)
+V.Local.sFile.Declare(String)
+
+'calling GCG_4264_Box_Label.g2u to print codesoft label
+'this is a work around to get the labels to print since if the GCG_4264_Box_Label.g2u is on hook 16090 the codesoft doesn't print.
+F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+	F.Intrinsic.Control.Case("16090")
+		F.Intrinsic.Control.If(V.Passed.009001,=,"000051")
+			F.Intrinsic.String.Build("{0}\GAB\GAS\GCG_4264_Box_Label.g2u",V.Caller.PluginsDir,V.Local.sFile)
+			F.Global.Task.CallASyncGas(V.Local.sFile,1,V.Local.iRet)
+			
+		F.Intrinsic.Control.ElseIf(V.Passed.009001,=,"001811")
+			F.Intrinsic.String.Build("{0}\GAB\GAS\GCG_4264_KitLabel.g2u",V.Caller.PluginsDir,V.Local.sFile)
+			F.Global.Task.CallASyncGas(V.Local.sFile,1,V.Local.iRet)
+			
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.End
+
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.CaseElse
+		F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_Label_Caller.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$RLK$}$1/12/2017 8:39:43 AM$}$False
+Program.Sub.Comments.End
