@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxEdit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BorderStyle>None</BorderStyle>
+  <Pages>
+    <DefaultPage>
+      <Header>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Header>
+      <Footer>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Footer>
+      <PageSize>
+        <Width>0</Width>
+        <Height>0</Height>
+      </PageSize>
+    </DefaultPage>
+  </Pages>
+  <DisplayStrings />
+  <Selection>
+    <SelectionRect>
+      <Location>
+        <X>0</X>
+        <Y>272</Y>
+      </Location>
+      <Size>
+        <Width>24</Width>
+        <Height>9</Height>
+      </Size>
+      <X>0</X>
+      <Y>272</Y>
+      <Width>24</Width>
+      <Height>9</Height>
+    </SelectionRect>
+    <Options>UseColors OverwriteBlocks SelectLineOnTripleClick CopyLineWhenEmpty SelectWordOnCtrlClick</Options>
+  </Selection>
+  <Gutter>
+    <LineNumbersForeColor>WindowText</LineNumbersForeColor>
+    <Options>PaintLineNumbers PaintBookMarks PaintLineModificators</Options>
+  </Gutter>
+  <Margin>
+    <Visible>false</Visible>
+  </Margin>
+  <LineStyles />
+  <LineSeparator />
+  <Printing>
+    <Footer>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+    </Footer>
+    <Header>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+    </Header>
+  </Printing>
+  <WhiteSpace />
+  <TextSource>
+    <Position>
+      <X>0</X>
+      <Y>272</Y>
+    </Position>
+    <Lexer>
+      <Scheme>
+        <Author>Quantum Whale, LLC.</Author>
+        <Copyright>Copyright (c) 2004 - 2014 Quantum Whale LLC.</Copyright>
+        <FileType>gas</FileType>
+        <Version>1.5</Version>
+        <Styles>
+          <Style>
+            <Name>idents</Name>
+            <ForeColor>ControlText</ForeColor>
+          </Style>
+          <Style>
+            <Name>numbers</Name>
+            <ForeColor>ControlText</ForeColor>
+          </Style>
+          <Style>
+            <Name>reswords</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>comments</Name>
+            <ForeColor>Green</ForeColor>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>xmlcomments</Name>
+            <ForeColor>Gray</ForeColor>
+          </Style>
+          <Style>
+            <Name>symbols</Name>
+            <ForeColor>WindowText</ForeColor>
+          </Style>
+          <Style>
+            <Name>whitespace</Name>
+            <ForeColor>WindowText</ForeColor>
+          </Style>
+          <Style>
+            <Name>strings</Name>
+            <ForeColor>Maroon</ForeColor>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>directives</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>htmlparams</Name>
+            <ForeColor>Red</ForeColor>
+          </Style>
+          <Style>
+            <Name>syntax errors</Name>
+            <ForeColor>Red</ForeColor>
+          </Style>
+          <Style>
+            <Name>codes nippets</Name>
+            <ForeColor>Black</ForeColor>
+            <BackColor>255:180:228:180</BackColor>
+          </Style>
+          <Style>
+            <Name>GabReservedWords</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabTokenWithBrackets</Name>
+            <ForeColor>Gray</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabFunctionIntrinsicDebug</Name>
+            <ForeColor>White</ForeColor>
+            <BackColor>Red</BackColor>
+            <FontStyle>Bold</FontStyle>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>GabVariable</Name>
+            <ForeColor>Teal</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabVariableSystemDefined</Name>
+            <ForeColor>Teal</ForeColor>
+            <FontStyle>Bold Italic</FontStyle>
+          </Style>
+          <Style>
+            <Name>GabGui</Name>
+            <ForeColor>OrangeRed</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabProgramSubStartEnd</Name>
+            <ForeColor>Black</ForeColor>
+            <BackColor>LightGray</BackColor>
+            <FontStyle>Bold</FontStyle>
+            <PlainText>true</PlainText>
+          </Style>
+        </Styles>
+      </Scheme>
+    </Lexer>
+    <TextStrings>
+      <Lines>
+        <string>Program.Sub.ScreenSU.Start</string>
+        <string>Gui.SS_Form1..create</string>
+        <string>Gui.SS_Form1..caption("Box Label")</string>
+        <string>Gui.SS_Form1..size(4050,1725)</string>
+        <string>Gui.SS_Form1..position(0,0)</string>
+        <string>Gui.SS_Form1..alwaysontop(False)</string>
+        <string>Gui.SS_Form1..fontname("Arial")</string>
+        <string>Gui.SS_Form1..fontsize(8)</string>
+        <string>Gui.SS_Form1..forecolor(0)</string>
+        <string>Gui.SS_Form1..fontstyle(,,,)</string>
+        <string>Gui.SS_Form1..BackColor(-2147483633)</string>
+        <string>Gui.SS_Form1..controlbox(True)</string>
+        <string>Gui.SS_Form1..maxbutton(False)</string>
+        <string>Gui.SS_Form1..minbutton(False)</string>
+        <string>Gui.SS_Form1..mousepointer(0)</string>
+        <string>Gui.SS_Form1..moveable(True)</string>
+        <string>Gui.SS_Form1..sizeable(False)</string>
+        <string>Gui.SS_Form1..ShowInTaskBar(True)</string>
+        <string>Gui.SS_Form1..titlebar(True)</string>
+        <string>Gui.SS_Form1..MinX(0)</string>
+        <string>Gui.SS_Form1..MinY(0)</string>
+        <string>Gui.SS_Form1..Event(UnLoad,SS_Form1_UnLoad)</string>
+        <string>Gui.SS_Form1.lbl_ddl_PackList.create(label,"Select Packing List Number",True,2940,195,1,105,135,True,0,Arial,8,-2147483633,0)</string>
+        <string>Gui.SS_Form1.lbl_ddl_PackList.LabelStretch(True)</string>
+        <string>Gui.SS_Form1.ddl_PackList.create(dropdownlist)</string>
+        <string>Gui.SS_Form1.ddl_PackList.visible(True)</string>
+        <string>Gui.SS_Form1.ddl_PackList.size(3600,330)</string>
+        <string>Gui.SS_Form1.ddl_PackList.position(105,330)</string>
+        <string>Gui.SS_Form1.ddl_PackList.enabled(True)</string>
+        <string>Gui.SS_Form1.ddl_PackList.fontname("Arial")</string>
+        <string>Gui.SS_Form1.ddl_PackList.fontsize(8)</string>
+        <string>Gui.SS_Form1.ddl_PackList.tabstop(True)</string>
+        <string>Gui.SS_Form1.ddl_PackList.tabindex(1)</string>
+        <string>Gui.SS_Form1.ddl_PackList.Event(Click,ddl_PackList_Click)</string>
+        <string>Gui.SS_Form1.cmd_Print.create(button)</string>
+        <string>Gui.SS_Form1.cmd_Print.Caption("Print")</string>
+        <string>Gui.SS_Form1.cmd_Print.visible(True)</string>
+        <string>Gui.SS_Form1.cmd_Print.size(1005,360)</string>
+        <string>Gui.SS_Form1.cmd_Print.position(105,750)</string>
+        <string>Gui.SS_Form1.cmd_Print.enabled(True)</string>
+        <string>Gui.SS_Form1.cmd_Print.fontname("Arial")</string>
+        <string>Gui.SS_Form1.cmd_Print.fontsize(8)</string>
+        <string>Gui.SS_Form1.cmd_Print.tabstop(True)</string>
+        <string>Gui.SS_Form1.cmd_Print.tabindex(2)</string>
+        <string>Gui.SS_Form1.cmd_Print.Event(Click,cmd_Print_Click)</string>
+        <string>Program.Sub.ScreenSU.End</string>
+        <string />
+        <string>Program.Sub.Preflight.Start</string>
+        <string>Variable.Global.iBIRunID.Declare(Long,0)</string>
+        <string>Variable.Global.iLogID.Declare(Long,0)</string>
+        <string>Variable.Global.lLogID.Declare(Long,0)</string>
+        <string>Variable.UDT.uBox.Define("Order_No",String,"Order_no")</string>
+        <string>Variable.UDT.uBox.Define("Attention_Ship",String,"Attention_Ship")</string>
+        <string>Variable.UDT.uBox.Define("Address_1_Ship",String,"Address_1_Ship")</string>
+        <string>Variable.UDT.uBox.Define("City_Ship",String,"City_Ship")</string>
+        <string>Variable.UDT.uBox.Define("State_Ship",String,"State_Ship")</string>
+        <string>Variable.UDT.uBox.Define("Code_Zip_Ship",String,"Code_Zip_Ship")</string>
+        <string>Variable.UDT.uBox.Define("Country_Ship",String,"Country_Ship")</string>
+        <string>Variable.UDT.uBox.Define("Part",String,"Part")</string>
+        <string>Variable.UDT.uBox.Define("Date_Shipped",Date,"Date_Shipped")</string>
+        <string>Variable.UDT.uBox.Define("Qty",Float)</string>
+        <string>Variable.UDT.uBox.Define("Name_Customer_Ship",String,"Name_Customer_Ship")</string>
+        <string>Variable.UDT.uBox.Define("Customer_PO",String,"Customer_PO")</string>
+        <string>Variable.UDT.uBox.Define("Weight",Float)</string>
+        <string>Variable.UDT.uBox.Define("Package_Count",String)</string>
+        <string>Variable.UDT.uBox.Define("External_ID",String)</string>
+        <string>Variable.UDT.uBox.Define("Customer",String,"Customer")</string>
+        <string>Variable.UDT.uBox.Define("Order_Line",String)</string>
+        <string>Variable.UDT.uBox.Define("Date",String)</string>
+        <string>Variable.UDT.uBox.Define("Pck_No",String,"Pck_No")</string>
+        <string>Variable.uGlobal.uBox.Declare("uBox")</string>
+        <string>Variable.UDT.uExt.Define("Customer",String,"Customer")</string>
+        <string>Variable.UDT.uExt.Define("External_ID",String,"External_ID")</string>
+        <string>Variable.uGlobal.uExt.Declare("uExt")</string>
+        <string>Variable.UDT.uOrdLine.Define("Order_No",String,"Order_No")</string>
+        <string>Variable.UDT.uOrdLine.Define("Record_No",String,"Record_No")</string>
+        <string>Variable.UDT.uOrdLine.Define("Qty_Ordered",Float,"Qty_Ordered")</string>
+        <string>Variable.UDT.uOrdLine.Define("Weight",Float,"Weight")</string>
+        <string>Variable.uGlobal.uOrdLine.Declare("uOrdLine")</string>
+        <string>Program.Sub.Preflight.End</string>
+        <string />
+        <string>Program.Sub.Main.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("Main_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>V.Local.sSql.Declare(String)</string>
+        <string>V.Local.i.Declare(Long)</string>
+        <string />
+        <string>F.Intrinsic.UI.Sleep(5)</string>
+        <string />
+        <string>'opening connection</string>
+        <string>F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)</string>
+        <string />
+        <string>'F.Intrinsic.Control.SelectCase(V.Caller.Hook)</string>
+        <string>'	F.Intrinsic.Control.Case("16090")</string>
+        <string>'		F.Intrinsic.Control.If(V.Passed.009001,=,"000051")</string>
+        <string>'			populate packing list dropdown from avialable Packing list number from the bi table</string>
+        <string>			F.Intrinsic.String.Build("Select distinct PCK_NO From V_BI_Packing_List Where Terminal = '{0}' Order by PCK_NO",V.Caller.Terminal,V.Local.sSql)</string>
+        <string />
+        <string>			Gui.SS_Form1.ddl_PackList.AddItem("")</string>
+        <string>			F.Data.DataTable.CreateFromSQL("Pack","con",V.Local.sSql,True)</string>
+        <string />
+        <string>			F.Intrinsic.Control.If(V.DataTable.Pack.RowCount,&gt;=,0)</string>
+        <string>				F.Intrinsic.Control.For(V.Local.i,0,V.DataTable.Pack.RowCount--,1)</string>
+        <string>					Gui.SS_Form1.ddl_PackList.AddItem(V.DataTable.Pack(V.Local.i).PCK_NO!FieldValTrim)</string>
+        <string>				F.Intrinsic.Control.Next(V.Local.i)</string>
+        <string>			F.Intrinsic.Control.Else</string>
+        <string>				F.Intrinsic.UI.Msgbox("There are no Packing List Numbers to print labels for.")</string>
+        <string>				F.Data.DataTable.Close("Pack")</string>
+        <string>				'closing datatable</string>
+        <string>				F.Intrinsic.Control.CallSub(ss_form1_unload)</string>
+        <string>			F.Intrinsic.Control.EndIf</string>
+        <string>			'closing datatable</string>
+        <string>			F.Data.DataTable.Close("Pack")</string>
+        <string />
+        <string>			Gui.SS_Form1.cmd_Print.Enabled(False)</string>
+        <string />
+        <string>			'showing screen</string>
+        <string>			Gui.SS_Form1..Show</string>
+        <string>'		F.Intrinsic.Control.Else</string>
+        <string>'			F.Intrinsic.Control.CallSub(ss_form1_unload)</string>
+        <string>'		F.Intrinsic.Control.EndIf</string>
+        <string>'	F.Intrinsic.Control.CaseElse</string>
+        <string>'		F.Intrinsic.Control.CallSub(ss_form1_unload)</string>
+        <string>'F.Intrinsic.Control.EndSelect</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("Main_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.CallSub(ss_form1_unload)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.Main.End</string>
+        <string />
+        <string>Program.Sub.SS_Form1_UnLoad.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("SS_Form1_UnLoad_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string />
+        <string>'closing connection</string>
+        <string>F.ODBC.Connection!con.Close</string>
+        <string>'ending program</string>
+        <string>F.Intrinsic.Control.End</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("SS_Form1_UnLoad_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.End</string>
+        <string />
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.SS_Form1_UnLoad.End</string>
+        <string />
+        <string>Program.Sub.cmd_Print_Click.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("cmd_Print_Click_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string />
+        <string>Gui.SS_Form1..Visible(False)</string>
+        <string />
+        <string>F.Global.BI.StopLogging(V.Global.iLogID)</string>
+        <string />
+        <string>'call codesoft </string>
+        <string>F.Intrinsic.Control.If(V.uGlobal.uBox.UBound,&lt;&gt;,-1)</string>
+        <string>	F.Global.BI.PrintCodesoftLabelFromUDT(V.Global.iBIRunID,V.Global.iLogID,"uGlobal.uBox","","",True)</string>
+        <string>F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("cmd_Print_Click_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.CallSub(ss_form1_unload)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.cmd_Print_Click.End</string>
+        <string />
+        <string>Program.Sub.ddl_PackList_Click.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("ddl_PackList_Click_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>V.Local.sSql.Declare(String)</string>
+        <string>V.Local.i.Declare(Long)</string>
+        <string>V.Local.iLCount.Declare(Long)</string>
+        <string>V.Local.sPackCount.Declare(String)</string>
+        <string>V.Local.iPackCount.Declare(Long)</string>
+        <string>V.Local.sDate.Declare(String)</string>
+        <string>V.Local.lReportID.Declare(Long)</string>
+        <string />
+        <string>F.Intrinsic.Control.If(V.Screen.SS_Form1!ddl_PackList.Text,=," ")</string>
+        <string>	F.Intrinsic.Control.ExitSub</string>
+        <string>F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.Intrinsic.UI.InvokeWaitDialog("Loading Data")</string>
+        <string />
+        <string>F.Global.BI.GetRunID(V.Global.iBIRunID)</string>
+        <string />
+        <string>F.Global.BI.GetIDFromName("GCG_4264_Box_Label.lab",V.Local.lReportID)</string>
+        <string />
+        <string>F.Global.BI.StartLogging(V.global.iBIRunID,V.Local.lReportID,0,"",V.Global.iLogid)</string>
+        <string />
+        <string>'getting data and saving to udt to send to code soft label</string>
+        <string>F.Intrinsic.String.Build("Select distinct a.Pck_No, a.Order_No, c.Attention_Ship, c.Address_1_Ship, c.City_Ship, c.State_Ship, c.Code_Zip_Ship, c.Country_Ship, b.Part, a.Date_Shipped,","",V.Local.sSql)</string>
+        <string>F.Intrinsic.String.Build("{0} c.Name_Customer_Ship, a.Customer_PO, a.Customer From V_BI_Packing_List a left join V_Order_Lines b on a.order_No = b.order_no left join V_Order_Ship_To c on a.order_no = c.order_No Where Terminal = '{1}' and Line_Type = 'H' Order by a.Order_NO",V.Local.sSql,V.Caller.Terminal,V.Local.sSql) </string>
+        <string />
+        <string>F.ODBC.Connection!con.OpenLocalRecordsetRO("rst",V.Local.sSql)</string>
+        <string>F.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)</string>
+        <string>	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rst",V.uGlobal.uBox,False,0)</string>
+        <string />
+        <string>	V.Local.sSql.Set("Select Customer, External_ID From V_CUST_FORM_INFO")</string>
+        <string>	F.ODBC.Connection!con.OpenLocalRecordsetRO("rstExt",V.Local.sSql)</string>
+        <string>	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstExt",V.uGlobal.uExt,False,0)</string>
+        <string>	V.Local.sSql.Set("Select Order_No, Record_No, Qty_Ordered, Weight From V_Order_Lines")</string>
+        <string>	F.ODBC.Connection!con.OpenLocalRecordsetRO("rstLine",V.Local.sSql)</string>
+        <string>	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstLine",V.uGlobal.uOrdLine,False,0)</string>
+        <string />
+        <string>	V.Local.iPackCount.Set(V.uGlobal.uBox.UBound)</string>
+        <string>	F.Intrinsic.Math.Add(V.Local.iPackCount,1,V.Local.iPackCount)</string>
+        <string />
+        <string>	F.Intrinsic.Control.For(V.Local.i,0,V.uGlobal.uExt.UBound,1)</string>
+        <string>		F.Intrinsic.Variable.UDTMultiSeekSet(V.uGlobal.uBox!Customer,v.uGlobal.uExt(V.Local.i)!Customer,V.uGlobal.uBox!External_ID,V.uGlobal.uExt(V.Local.i)!External_ID)</string>
+        <string>	F.Intrinsic.Control.Next(V.Local.i)</string>
+        <string />
+        <string>	F.Intrinsic.Control.For(V.Local.i,0,V.uGlobal.uOrdLine.UBound,1)</string>
+        <string>		F.Intrinsic.Variable.UDTMultiSeekSet(V.uGlobal.uBox!Order_No,V.uGlobal.uOrdLine(V.Local.i)!Order_No,V.uGlobal.uBox!Order_Line,V.uGlobal.uOrdLine(V.Local.i)!Record_No)</string>
+        <string>		F.Intrinsic.Variable.UDTMultiSeekSet(V.uGlobal.uBox!Order_No,V.uGlobal.uOrdLine(V.Local.i)!Order_No,V.uGlobal.uBox!Qty,V.uGlobal.uOrdLine(V.Local.i)!Qty_Ordered)</string>
+        <string>		F.Intrinsic.Variable.UDTMultiSeekSet(V.uGlobal.uBox!Order_No,V.uGlobal.uOrdLine(V.Local.i)!Order_No,V.uGlobal.uBox!Weight,V.uGlobal.uOrdLine(V.Local.i)!Weight)</string>
+        <string>	F.Intrinsic.Control.Next(V.Local.i)</string>
+        <string />
+        <string>	F.Intrinsic.Control.For(V.Local.i,0,V.uGlobal.uBox.UBound,1)</string>
+        <string>		F.Intrinsic.Math.Add(V.Local.i,1,V.Local.iLCount)</string>
+        <string>		F.Intrinsic.String.Build("{0}/{1}",V.Local.iLCount,V.Local.iPackCount,V.Local.sPackCount)</string>
+        <string>		V.uGlobal.uBox!Package_Count(V.Local.i).Set(V.Local.sPackCount)</string>
+        <string>		F.Intrinsic.String.Format(V.Ambient.Date,"WWYY",V.Local.sDate)</string>
+        <string>		V.uGlobal.uBox!Date(V.Local.i).Set(V.Local.sDate.Format*0000)</string>
+        <string>	F.Intrinsic.Control.Next(V.Local.i)</string>
+        <string />
+        <string>	Gui.SS_Form1.cmd_Print.Enabled(True)</string>
+        <string>	F.ODBC.con!rstExt.Close</string>
+        <string>	F.ODBC.con!rstLine.Close</string>
+        <string>F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.ODBC.con!rst.Close</string>
+        <string />
+        <string>F.Intrinsic.UI.CloseWaitDialog</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("ddl_PackList_Click_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.CallSub(ss_form1_unload)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.ddl_PackList_Click.End</string>
+        <string />
+        <string>Program.Sub.Comments.Start</string>
+        <string>${$0$}$$}$RLK$}$1/6/2017 10:56:10 AM$}$False</string>
+        <string>${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$Box Label </string>
+        <string>This label is generated at the time that the packing list is created. This will be added to run on Report ID 51 immediately after the packing list has been created. </string>
+        <string>The user will be prompted with to enter in the Packing List Number. We will then grab the information based on that Packing List's Lines, and the Work Order associated with the Sales Orders on that packing list. </string>
+        <string>The contents of the label are: </string>
+        <string>Shipping Address (in it's own box) - Shipping address from Sales Order Part Number (Part Number:) - Part Number from Work Order Revision (Revision:) - Part Revision Serial (Serial Number:) - Same as Bar Label Serial Supplier Code (Supplier Code:) - customer External ID Purchase Code (Purchase Order No:) - Customer PO from Sales Order Line Item (Line Item:) - Sale Order Line Item Qty (Quantity:) - Sales order quantity Date Shipped (Date Shipped:) - Date from packing list Package Count (Package count:) - label # / # of labels </string>
+        <string>Examples of the layout for all of these labels can be found attached to the call. </string>
+        <string />
+        <string>Program.Sub.Comments.End</string>
+        <string />
+        <string>Program.Sub.ScreenSS.Start</string>
+        <string>SS_Form1{{CAPTION::Box Label</string>
+        <string>SS_Form1.CTRL{{NAME::ddl_PackList\\TYPE::4\\CAPTION::Select Packing List Number\\TABSTOP::1\\GROUP::-1\\BROWSER::0\\SIZE::2</string>
+        <string>SS_Form1.CTRL{{NAME::cmd_Print\\TYPE::5\\CAPTION::Print\\TABSTOP::2\\GROUP::-1\\BROWSER::0\\SIZE::1</string>
+        <string />
+        <string>Program.Sub.ScreenSS.End</string>
+      </Lines>
+    </TextStrings>
+  </TextSource>
+  <Scrolling>
+    <WindowOriginY>155</WindowOriginY>
+    <Options>None</Options>
+  </Scrolling>
+  <Outlining>
+    <AllowOutlining>true</AllowOutlining>
+    <ImageSize>8</ImageSize>
+    <Ranges>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>0</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>45</Y>
+        </EndPoint>
+        <Text>Program.Sub.ScreenSU</Text>
+        <DisplayText>Program.Sub.ScreenSU</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>47</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>79</Y>
+        </EndPoint>
+        <Text>Program.Sub.Preflight</Text>
+        <DisplayText>Program.Sub.Preflight</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>81</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>137</Y>
+        </EndPoint>
+        <Text>Program.Sub.Main</Text>
+        <DisplayText>Program.Sub.Main</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>139</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>161</Y>
+        </EndPoint>
+        <Text>Program.Sub.SS_Form1_UnLoad</Text>
+        <DisplayText>Program.Sub.SS_Form1_UnLoad</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>163</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>188</Y>
+        </EndPoint>
+        <Text>Program.Sub.cmd_Print_Click</Text>
+        <DisplayText>Program.Sub.cmd_Print_Click</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>190</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>270</Y>
+        </EndPoint>
+        <Text>Program.Sub.ddl_PackList_Click</Text>
+        <DisplayText>Program.Sub.ddl_PackList_Click</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>272</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>281</Y>
+        </EndPoint>
+        <Text>Program.Sub.Comments</Text>
+        <DisplayText>Program.Sub.Comments</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>283</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>288</Y>
+        </EndPoint>
+        <Text>Program.Sub.ScreenSS</Text>
+        <DisplayText>Program.Sub.ScreenSS</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+    </Ranges>
+  </Outlining>
+  <HyperText />
+  <Spelling />
+  <Braces />
+</SyntaxEdit>
