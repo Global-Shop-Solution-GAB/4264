@@ -1,0 +1,235 @@
+Program.Sub.ScreenSU.Start
+Gui.SS_Form1..create
+Gui.SS_Form1..caption("Box Label")
+Gui.SS_Form1..size(4050,1725)
+Gui.SS_Form1..position(0,0)
+Gui.SS_Form1..alwaysontop(True)
+Gui.SS_Form1..forecolor(0)
+Gui.SS_Form1..fontstyle(,,)
+Gui.SS_Form1..BackColor(-2147483633)
+Gui.SS_Form1..maxbutton(False)
+Gui.SS_Form1..minbutton(False)
+Gui.SS_Form1..mousepointer(0)
+Gui.SS_Form1..sizeable(False)
+Gui.SS_Form1..MinX(0)
+Gui.SS_Form1..MinY(0)
+Gui.SS_Form1..Event(UnLoad,SS_Form1_UnLoad)
+Gui.SS_Form1.lbl_ddl_PackList.create(label,"Select Packing List Number",True,2940,195,1,105,135,True,0,Arial,8,-2147483633,0)
+Gui.SS_Form1.lbl_ddl_PackList.LabelStretch(True)
+Gui.SS_Form1.ddl_PackList.create(dropdownlist)
+Gui.SS_Form1.ddl_PackList.size(3600,330)
+Gui.SS_Form1.ddl_PackList.position(105,330)
+Gui.SS_Form1.ddl_PackList.tabstop(True)
+Gui.SS_Form1.ddl_PackList.tabindex(1)
+Gui.SS_Form1.ddl_PackList.Event(Click,ddl_PackList_Click)
+Gui.SS_Form1.cmd_Print.create(button)
+Gui.SS_Form1.cmd_Print.Caption("Print")
+Gui.SS_Form1.cmd_Print.size(1005,360)
+Gui.SS_Form1.cmd_Print.position(105,750)
+Gui.SS_Form1.cmd_Print.tabstop(True)
+Gui.SS_Form1.cmd_Print.tabindex(2)
+Gui.SS_Form1.cmd_Print.Event(Click,cmd_Print_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.Global.iBIRunID.Declare(Long,0)
+Variable.Global.iLogID.Declare(Long,0)
+Variable.Global.lLogID.Declare(Long,0)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.i.Declare(Long)
+
+F.Intrinsic.UI.Sleep(5)
+
+'opening connection
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass,7200)
+
+'F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+'	F.Intrinsic.Control.Case("16090")
+'		F.Intrinsic.Control.If(V.Passed.009001,=,"000051")
+'			populate packing list dropdown from avialable Packing list number from the bi table
+			F.Intrinsic.String.Build("Select distinct PCK_NO From V_BI_Packing_List Where Terminal = '{0}' Order by PCK_NO",V.Caller.Terminal,V.Local.sSql)
+
+			Gui.SS_Form1.ddl_PackList.AddItem("")
+			F.Data.DataTable.CreateFromSQL("Pack","con",V.Local.sSql,True)
+
+			F.Intrinsic.Control.If(V.DataTable.Pack.RowCount,>=,0)
+				F.Intrinsic.Control.For(V.Local.i,0,V.DataTable.Pack.RowCount--,1)
+					Gui.SS_Form1.ddl_PackList.AddItem(V.DataTable.Pack(V.Local.i).PCK_NO!FieldValTrim)
+				F.Intrinsic.Control.Next(V.Local.i)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.UI.Msgbox("There are no Packing List Numbers to print labels for.")
+				F.Data.DataTable.Close("Pack")
+				'closing datatable
+				F.Intrinsic.Control.CallSub(ss_form1_unload)
+			F.Intrinsic.Control.EndIf
+			'closing datatable
+			F.Data.DataTable.Close("Pack")
+
+			Gui.SS_Form1.cmd_Print.Enabled(False)
+
+			'showing screen
+			Gui.SS_Form1..Show
+'		F.Intrinsic.Control.Else
+'			F.Intrinsic.Control.CallSub(ss_form1_unload)
+'		F.Intrinsic.Control.EndIf
+'	F.Intrinsic.Control.CaseElse
+'		F.Intrinsic.Control.CallSub(ss_form1_unload)
+'F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.SS_Form1_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("SS_Form1_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'closing connection
+F.ODBC.Connection!con.Close
+'ending program
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("SS_Form1_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.SS_Form1_UnLoad.End
+
+Program.Sub.cmd_Print_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmd_Print_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+Gui.SS_Form1..Visible(False)
+
+F.Global.BI.StopLogging(V.Global.iLogID)
+'call codesoft 
+
+f.Intrinsic.Control.If(v.DataTable.DTFinal.rowcount,>,0)
+	F.Global.BI.PrintCodesoftLabelFromDatatable(V.Global.iBIRunID,V.Global.iLogID,"DTFinal","",True)
+f.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd_Print_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.cmd_Print_Click.End
+
+Program.Sub.ddl_PackList_Click.Start
+F.Intrinsic.Control.SetErrorHandler("ddl_PackList_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.i.Declare(Long)
+V.Local.iLCount.Declare(Long)
+V.Local.sPackCount.Declare(String)
+V.Local.iPackCount.Declare(Long)
+V.Local.sDate.Declare(String)
+V.Local.lReportID.Declare(Long)
+V.Local.lCarton.Declare(long)
+V.Local.j.Declare(long)
+
+F.Intrinsic.Control.If(V.Screen.SS_Form1!ddl_PackList.Text,=," ")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.InvokeWaitDialog("Loading Data")
+
+F.Global.BI.GetRunID(V.Global.iBIRunID)
+
+F.Global.BI.GetIDFromName("GCG_4264_Box_Label.lab",V.Local.lReportID)
+
+F.Global.BI.StartLogging(V.global.iBIRunID,V.Local.lReportID,0,"",V.Global.iLogid)
+
+
+'getting data and saving to udt to send to code soft label
+F.Intrinsic.String.Build("Select Distinct a.Pck_No, a.Order_No, c.Attention_Ship, c.Address_1_Ship, c.City_Ship, c.State_Ship, c.Code_Zip_Ship, c.Country_Ship, b.Part,convert(a.date_shipped,SQL_Char) as date_shipped ,","",V.Local.sSql)
+F.Intrinsic.String.Build("{0} c.Name_Customer_Ship, a.Customer_PO, a.Customer,D.DateCODE as 'Date',S.Cartons,b.Record_No as Order_ln,a.qty_shipped as Qty,b.Weight,F.External_ID From V_BI_Packing_List a left join V_Order_Lines b on a.order_No = b.order_no and a.record_no = b.record_no left join V_Order_Ship_To c on a.order_no = c.order_No join V_Order_header H on h.order_No = c.order_no and h.Ship_ID = c.Ship_ID left join order_TO_WO w on a.order_No = w.order_no and a.record_no = w.order_line left join GCG_4265_DATECODE D on D.Job = w.Job and D.Suffix = w.Suffix left join V_CUST_FORM_INFO F on a.customer = F.customer left Join shipment_Lines s on a.pck_no = s.pck_no and a.record_no = s.order_rec and  s.record_type = 'L'  Where Terminal = '{1}' and  a.record_type = 'S' Order by a.Order_NO",V.Local.sSql,V.Caller.Terminal,V.Local.sSql) 
+
+
+f.Data.DataTable.CreateFromSQL("DTLabel","con",v.Local.sSql,True)
+
+
+f.Intrinsic.Control.If(v.DataTable.DTLabel.rowcount,>,0)
+
+	F.Data.Datatable.Clone("DTLabel","DTFinal",True)
+	f.Data.DataTable.AddColumn("DTFinal","Package_Count","string")
+	
+	Function.Data.DataTable.SetValueFormat("DTLabel",-1,"Date_Shipped","Date_Shipped","MM/DD/YYYY")
+	
+	F.Intrinsic.Control.For(V.Local.i,0,v.DataTable.DTLabel.rowcount--,1)
+		F.Intrinsic.Control.For(V.Local.j,1,V.datatable.DTLabel(V.Local.i).Cartons.fieldval,1)
+'			F.Intrinsic.String.Build("{0}/{1}",V.Local.j,V.datatable.DTLabel(V.Local.i).Cartons.fieldval,V.Local.sPackCount)
+			F.Intrinsic.String.Build("{0}",V.Local.j,V.Local.sPackCount)
+			F.Data.DataTable.AddRow("DTFinal","Order_No",V.datatable.DTLabel(V.Local.i).Order_No.fieldval,"Attention_Ship",V.datatable.DTLabel(V.Local.i).Attention_Ship.fieldval,"Address_1_Ship",V.datatable.DTLabel(V.Local.i).Address_1_Ship.fieldval,"City_Ship",V.datatable.DTLabel(V.Local.i).City_Ship.fieldval,"State_Ship",V.datatable.DTLabel(V.Local.i).State_Ship.fieldval,"Code_Zip_Ship",V.datatable.DTLabel(V.Local.i).Code_Zip_Ship.fieldval,"Country_Ship",V.datatable.DTLabel(V.Local.i).Country_Ship.fieldval,"Part",V.datatable.DTLabel(V.Local.i).Part.fieldval,"Date_Shipped",V.datatable.DTLabel(V.Local.i).Date_Shipped.fieldval,"Qty",V.datatable.DTLabel(V.Local.i).Qty.fieldval,"Name_Customer_Ship",V.datatable.DTLabel(V.Local.i).Name_Customer_Ship.fieldval,"Customer_PO",V.datatable.DTLabel(V.Local.i).Customer_PO.fieldval,"Weight",V.datatable.DTLabel(V.Local.i).Weight.fieldval,"External_ID",V.datatable.DTLabel(V.Local.i).External_ID.fieldval,"Customer",V.datatable.DTLabel(V.Local.i).Customer.fieldval,"Order_Ln",V.datatable.DTLabel(V.Local.i).Order_Ln.fieldval,"Date",V.datatable.DTLabel(V.Local.i).Date.fieldval,"Pck_No",V.datatable.DTLabel(V.Local.i).Pck_No.fieldval,"Cartons",V.datatable.DTLabel(V.Local.i).Cartons.fieldval,"Package_Count",V.Local.sPackCount)
+		Function.Intrinsic.Control.Next(V.Local.j)
+	F.Intrinsic.Control.Next(V.Local.i)
+	
+	Gui.SS_Form1.cmd_Print.Enabled(True)
+
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.CloseWaitDialog
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ddl_PackList_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_Box_Label.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.ddl_PackList_Click.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$RLK$}$1/6/2017 10:56:10 AM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$Box Label 
+This label is generated at the time that the packing list is created. This will be added to run on Report ID 51 immediately after the packing list has been created. 
+The user will be prompted with to enter in the Packing List Number. We will then grab the information based on that Packing List's Lines, and the Work Order associated with the Sales Orders on that packing list. 
+The contents of the label are: 
+Shipping Address (in it's own box) - Shipping address from Sales Order Part Number (Part Number:) - Part Number from Work Order Revision (Revision:) - Part Revision Serial (Serial Number:) - Same as Bar Label Serial Supplier Code (Supplier Code:) - customer External ID Purchase Code (Purchase Order No:) - Customer PO from Sales Order Line Item (Line Item:) - Sale Order Line Item Qty (Quantity:) - Sales order quantity Date Shipped (Date Shipped:) - Date from packing list Package Count (Package count:) - label # / # of labels 
+Examples of the layout for all of these labels can be found attached to the call. 
+
+Program.Sub.Comments.End
+
+Program.Sub.ScreenSS.Start
+SS_Form1{{CAPTION::Box Label
+SS_Form1.CTRL{{NAME::ddl_PackList\\TYPE::4\\CAPTION::Select Packing List Number\\TABSTOP::1\\GROUP::-1\\BROWSER::0\\SIZE::2
+SS_Form1.CTRL{{NAME::cmd_Print\\TYPE::5\\CAPTION::Print\\TABSTOP::2\\GROUP::-1\\BROWSER::0\\SIZE::1
+
+Program.Sub.ScreenSS.End
