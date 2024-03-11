@@ -1,0 +1,154 @@
+Program.Sub.Preflight.Start
+
+Variable.Global.iBIRunID.Declare(Long,-1)
+Variable.Global.iBILogID.Declare(Long,-1)
+
+Variable.UDT.uPORcpt.Define("DESCR",String,"DESCR")
+Variable.UDT.uPORcpt.Define("RECEIVER_NO",String,"RECEIVER_NO")
+Variable.UDT.uPORcpt.Define("RECEIVED_DATE",Date,"RECEIVED_DATE")
+Variable.UDT.uPORcpt.Define("PO",String,"PO")
+Variable.UDT.uPORcpt.Define("PART",String,"PART")
+Variable.UDT.uPORcpt.Define("PO_QTY_REC",Float,"PO_QTY_REC")
+Variable.UDT.uPORcpt.Define("PO_UM",String,"PO_UM")
+Variable.UDT.uPORcpt.Define("LOCN",String,"LOCN")
+Variable.UDT.uPORcpt.Define("VENDOR",String,"VENDOR_NO")
+Variable.UDT.uPORcpt.Define("VENDOR_NAME",String,"VENDOR_NAME")
+Variable.UDT.uPORcpt.Define("USER_ID",String,"USER_ID")
+Variable.UDT.uPORcpt.Define("MFG_NAME",String,"MFG_NAME")
+Variable.UDT.uPORcpt.Define("MFG_PART",String,"MFG_PART")
+Variable.UDT.uPORcpt.Define("BIN",String,"BIN")
+Variable.UDT.uPORcpt.Define("BIRUNID",Long,"RUNID")
+Variable.UDT.uPORcpt.Define("QTY_ON_LABEL",Float,"QTY_ON_LABEL")
+Variable.UDT.uPORcpt.Define("Requires_Insp",String,"Requires_Testing")
+Variable.UDT.uPORcpt.Define("Requires_Test",String,"Requires_Insp")
+
+Variable.uGlobal.uPORcpt.Declare("uPORcpt")
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+
+
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+F.Intrinsic.Control.CallSub(Loaddata1)
+
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_POReceipt_2818.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.LoadData1.Start
+F.Intrinsic.Control.SetErrorHandler("LoadData1_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+'
+'F.Intrinsic.Debug.InvokeDebugger
+'
+'F.Intrinsic.Debug.Stop
+
+
+V.Local.sSql.Declare(String)
+V.Local.iUB.Declare(Long)
+
+'Getting run ID passed down
+V.Global.iBIRunID.Set(V.Passed.DATA-GAB-0)
+'Getting log ID passed down
+V.Global.iBILogID.Set(V.Passed.DATA-GAB-1)
+'Getting Sentinel flag passed down
+
+V.uGlobal.uPORcpt.Redim(-1,-1)
+
+'Loading data from Y table, as being label being printed from Menu, Selecting all fields as all fields are transferred over from Y table to Z table
+
+'F.Global.BI.GetRunID(V.Global.iBIRunID)
+
+F.Global.BI.StartLogging(V.Global.iBIRunID,-1,-1,"",V.Global.iBILogID)
+
+'V.Local.sSql.set("select RUNID,y.DESCR,y.RECEIVED_NO as RECEIVER_NO,y.RECEIVED_DATE,y.PO,y.PART,y.PO_QTY_REC,y.PO_UM,y.LOCN,y.VENDOR_NO as VENDOR_NO,y.VENDOR_NAME,y.USER_ID,y.MFG_NAME,y.MFG_PART,y.BIN,")
+'F.Intrinsic.String.Build("{0}y.RUNID,y.QTY_ON_LABEL,CASE WHEN REQ_TESTING <> 'Y' THEN 'N' Else 'Y' END as Requires_Testing,CASE WHEN REQUIRES_INSP <> 'Y' THEN 'N' Else 'Y' END as Requires_Insp from Y_PU_PORCPT Y join v_PO_Lines P  on ltrim(Y.part) = ltrim(P.part)",V.Local.sSql,V.Local.sSql )
+'F.Intrinsic.String.Build("{0} and Y.locn = p.location  where RUNID = {1}",V.Local.sSql,V.Global.iBIRunID,V.Local.sSql )
+
+V.Local.sSql.set("select distinct RUNID,y.DESCR,y.RECEIVED_NO as RECEIVER_NO,y.RECEIVED_DATE,y.PO,y.PART,y.PO_QTY_REC,y.PO_UM,y.LOCN,y.VENDOR_NO as VENDOR_NO,")
+F.Intrinsic.String.Build("{0} y.VENDOR_NAME,y.USER_ID,y.MFG_NAME,y.MFG_PART,y.BIN,y.RUNID,y.QTY_ON_LABEL,CASE WHEN REQ_TESTING <> 'Y' THEN 'N' Else 'Y' END as Requires_Testing,",V.Local.sSql,V.Local.sSql )
+F.Intrinsic.String.Build("{0} CASE WHEN REQUIRES_INSP <> 'Y' THEN 'N' Else 'Y' END as Requires_Insp from Y_PU_PORCPT Y join v_PO_Lines P  on y.PO = P.PURCHASE_ORDER and y.PO_Line = P.Record_no ",V.Local.sSql,V.Local.sSql )
+F.Intrinsic.String.Build("{0}  where RUNID = {1}",V.Local.sSql,V.Global.iBIRunID,V.Local.sSql ) 
+
+'Inspection Lines will not show in Receiving
+'join PO_RECEIVER PR on PR.RECEIVER_NO = y.RECEIVED_NO and y.PO = P.PURCHASE_ORDER and y.PO_Line = P.Record_no
+
+F.ODBC.Connection!con.OpenLocalRecordsetRO("rst",V.Local.sSql)
+F.Intrinsic.Variable.LoadUDTFromRecordset("con","rst","V.uGlobal.uPORcpt",True,0)
+F.ODBC.con!rst.Close
+
+F.Intrinsic.Control.If(V.uGlobal.uPORcpt.UBound,>,-1)
+    'Checking to see if sequence being printed is Codesoft label
+'    Function.Intrinsic.Control.If(Variable.Global.bSentinel,=,True)
+        'Stopping Logging
+        F.Global.BI.StopLogging(V.Global.iBILogID)
+
+        'Printing Codesoft label
+        F.Global.BI.PrintCodesoftLabelFromUDT(V.Global.iBIRunID,V.Global.iBILogID,"uGlobal.uPORcpt","","",True)
+F.Intrinsic.Control.EndIf
+
+Function.Intrinsic.Control.CallSub(Unload1)
+
+
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("LoadData1_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_POReceipt_2818.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.LoadData1.End
+
+Program.Sub.Unload1.Start
+F.Intrinsic.Control.SetErrorHandler("Unload1_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+
+
+F.ODBC.Connection!con.Close
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Unload1_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4264_POReceipt_2818.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Unload1.End
+
+Program.Sub.Comments.Start
+${$0$}$GCG_4264_POReceipt_2818.g2u$}$RAN$}$1/6/2017 10:58:36 AM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$Modification of ARC Project 1507 original program GCG_6963-2_Multi_MRP.gas
+This adds in the ability to save the Summary for later use.
+Program.Sub.Comments.End
+
+Program.Sub.Unload.End
